@@ -29,14 +29,14 @@ tmp_dir = Path(TMP_DIR)
 if not image_dir.exists():
     os.mkdir(str(image_dir))
 
-# shutil.rmtree(str(tmp_dir), ignore_errors=True)
-# os.mkdir(str(tmp_dir))
+shutil.rmtree(str(tmp_dir), ignore_errors=True)
+os.mkdir(str(tmp_dir))
 
-# for i, page in enumerate(pages):
-#     file_name = pdf_path.stem + "_{:02d}".format(i + 1) + ".jpeg"
-#     image_path = image_dir / file_name
-#     # JPEGで保存
-#     page.save(str(image_path), "JPEG")
+for i, page in enumerate(pages):
+    file_name = pdf_path.stem + "_{:02d}".format(i + 1) + ".jpeg"
+    image_path = image_dir / file_name
+    # JPEGで保存
+    page.save(str(image_path), "JPEG")
 
 if not tmp_dir.exists():
     tmp_dir.mkdir()
