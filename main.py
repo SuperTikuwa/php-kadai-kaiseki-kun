@@ -17,7 +17,7 @@ poppler_dir = Path(__file__).parent.absolute() / "poppler/bin"
 os.environ["PATH"] += os.pathsep + str(poppler_dir)
 
 # PDFファイルのパス
-pdf_path = Path("./Kadai02.pdf")
+pdf_path = Path("./Kadai03.pdf")
 
 # PDF -> Image に変換（150dpi）
 pages = convert_from_path(str(pdf_path), 150)
@@ -25,6 +25,18 @@ pages = convert_from_path(str(pdf_path), 150)
 # 画像ファイルを１ページずつ保存
 image_dir = Path(IMAGE_DIR)
 tmp_dir = Path(TMP_DIR)
+
+if not image_dir.exists():
+    os.mkdir(str(image_dir))
+
+shutil.rmtree(str(tmp_dir), ignore_errors=True)
+os.mkdir(str(tmp_dir))
+
+for i, page in enumerate(pages):
+    file_name = pdf_path.stem + "_{:02d}".format(i + 1) + ".jpeg"
+    image_path = image_dir / file_name
+    # JPEGで保存
+    page.save(str(image_path), "JPEG")
 
 if not tmp_dir.exists():
     tmp_dir.mkdir()
@@ -101,4 +113,5 @@ for tmp_images_name in tmp_images:
         if t[len(t) - 1] == ";" or t[len(t) - 1] == ">" or t.count("<") > 0:
             php += "\n"
 
-    print(php)
+    with open(str(DIST_DIR / (filename + ".php")), "w") as f:
+        f.write(php)
