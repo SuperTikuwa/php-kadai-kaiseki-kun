@@ -1,0 +1,4 @@
+pyocr==0.8
+pdf2image==1.16.0
+opencv_python==4.4.0.44
+Pillow==8.4.0
