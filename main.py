@@ -29,14 +29,14 @@ tmp_dir = Path(TMP_DIR)
 if not image_dir.exists():
     os.mkdir(str(image_dir))
 
-shutil.rmtree(str(tmp_dir), ignore_errors=True)
-os.mkdir(str(tmp_dir))
+# shutil.rmtree(str(tmp_dir), ignore_errors=True)
+# os.mkdir(str(tmp_dir))
 
-for i, page in enumerate(pages):
-    file_name = pdf_path.stem + "_{:02d}".format(i + 1) + ".jpeg"
-    image_path = image_dir / file_name
-    # JPEGで保存
-    page.save(str(image_path), "JPEG")
+# for i, page in enumerate(pages):
+#     file_name = pdf_path.stem + "_{:02d}".format(i + 1) + ".jpeg"
+#     image_path = image_dir / file_name
+#     # JPEGで保存
+#     page.save(str(image_path), "JPEG")
 
 if not tmp_dir.exists():
     tmp_dir.mkdir()
@@ -81,7 +81,7 @@ tmp_images = sorted(tmp_images)
 
 for tmp_images_name in tmp_images:
     txt = engine.image_to_string(Image.open(
-        str(tmp_images_name)), lang="eng")
+        str(tmp_images_name)), lang="jpn")
     txt = txt.replace("datal", "data1")
     txt = txt.replace("“", '"')
     txt = txt.replace("”", '"')
@@ -113,5 +113,5 @@ for tmp_images_name in tmp_images:
         if t[len(t) - 1] == ";" or t[len(t) - 1] == ">" or t.count("<") > 0:
             php += "\n"
 
-    with open(str(DIST_DIR / (filename + ".php")), "w") as f:
+    with open(DIST_DIR + "/" + (filename), "w") as f:
         f.write(php)
